@@ -1,0 +1,8 @@
+pyproject.toml
+bitfy/__init__.py
+bitfy/cli.py
+bitfy.egg-info/PKG-INFO
+bitfy.egg-info/SOURCES.txt
+bitfy.egg-info/dependency_links.txt
+bitfy.egg-info/entry_points.txt
+bitfy.egg-info/top_level.txt
