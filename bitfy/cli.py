@@ -237,24 +237,20 @@ class BitfyTool:
         click.echo("--write -w 'directory' 'filename' 'prompt': Write to a file")
         click.echo("--shell -s 'command': Convert natural language to shell command")
         click.echo("--change -ca 'new_api_key': Change API key")
-    def explain_this(self, filepath=None, start = 0, end = None, prompt="explain this"):
+    
+    def explain_this(self, filepath=None, prompt="explain this"):
         if not filepath:
             click.echo("Please provide a file path")
             return
 
-        if (end is None):
-            with open(filepath, "r") as f:
-                lines = f.readlines()
-                end = len(lines) - 1
-
         try:
             with open(filepath, "r", encoding="utf-8") as f:
-                content = "".join([f.read() for i, l in enumerate(f) if start <= i <= end])
-            explanation = self.ask_gemini(f"""{prompt}: This was written in file - {content}""")
-            
+                content = f.read()
+            explanation = self.ask_gemini(f"{prompt}: {content}")
             click.echo(explanation)
         except Exception as e:
             click.echo(f"⚠️ Error: {str(e)}")
+
 
 
     def write(self, directory=None, filename=None, prompt="write code about calculator"):
