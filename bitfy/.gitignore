@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / copied files
+__pycache__/
+*.pyc
+
+# Distribution / packaging
+dist/
+*.egg-info/
+
+# Environment variables
+.env
+
+# Other common files to ignore
+# If you're using Jupyter Notebooks
+.ipynb_checkpoints/
