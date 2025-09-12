@@ -1,91 +1,96 @@
+# Bitfy CLI: Your AI-Powered Command-Line Assistant
 
+Bitfy CLI is a powerful and intelligent command-line interface assistant designed to streamline your workflow on Windows. It goes beyond simple automation by understanding your requests in natural language and intelligently deciding whether to provide a direct answer or execute a command on your behalf. Powered by the Groq API and a local vector store, Bitfy learns from every interaction, becoming more helpful and personalized over time.
 
-# Bitfy CLI – AI Assistant with Memory
-
-Bitfy CLI is an AI-powered command-line assistant designed to provide **accurate Windows command-line solutions** with persistent memory.
-It uses **Groq’s LLaMA models** for fast responses and **MiniLM embeddings + FAISS** for semantic memory retrieval.
+-----
 
 ## ✨ Features
 
-* 🖥️ **Windows CLI Specialist** → Always generates concise, accurate command-line solutions.
-* 🧠 **Two-level memory** →
+  * **Natural Language to Command Execution:** Simply ask Bitfy to do something, and it will generate and propose the appropriate Windows command for you.
+  * **Persistent Memory:** Bitfy remembers past conversations using a local FAISS vector store, allowing it to provide contextually aware and accurate responses based on your history.
+  * **Performance-Optimized:** Asynchronous threading ensures that the memory update process doesn't slow down your command-line interactions.
+  * **Interactive Confirmation:** For your safety, Bitfy will always ask for your explicit permission before executing any command.
+  * **Effortless Setup:** Get started quickly by just setting your Groq API key via a simple command.
 
-  * Short-term memory (last exchange for immediate context)
-  * Long-term vector memory using FAISS for retrieving past conversations
-* ⚡ **Groq API Integration** → Ultra-fast inference with LLaMA-3.1 models
-* 📚 **Semantic Retrieval** → Splits, embeds, and indexes past Q\&A for smarter recall
-* 🔑 **API Key Management** → Easily set and persist your Groq API key
-* 🎨 **Interactive CLI** → Clean, figlet-based banner and seamless user experience
+-----
 
-## 📦 Installation
+## 🚀 Installation
 
+### Prerequisites
 
+  * **Python 3.x:** Ensure you have Python installed on your system.
+  * **pip:** Python's package installer, which comes with Python.
 
-Dependencies include:
+### Steps
 
-* `click`
-* `pyfiglet`
-* `langchain_groq`
-* `langchain_core`
-* `langchain_huggingface`
-* `langchain_community`
+1.  **Clone the Repository:**
 
-## 🔑 Configuration
+    ```bash
+    git clone https://github.com/your-username/bitfy-cli.git
+    cd bitfy-cli
+    ```
 
-Set your **Groq API Key** once:
+2.  **Install Dependencies:**
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+    *(Note: The dependencies are based on the code provided, including `click`, `pyfiglet`, `langchain`, `langchain-groq`, `langchain-huggingface`, `faiss-cpu`, and `sentence-transformers`.)*
+
+-----
+
+## 📝 Usage
+
+### 🔑 Set Your Groq API Key
+
+Before you can use Bitfy, you need to set up your Groq API key.
 
 ```bash
 python bitfy.py --setapi <YOUR_GROQ_API_KEY>
 ```
 
-This saves the key in `bitfy_config.json`.
+### 💬 Ask a Question or Run a Command
 
-## 🚀 Usage
+Use the `--ask` flag to interact with the AI assistant. Bitfy will analyze your request and provide a response or a command to execute.
 
-Ask a CLI-related question:
+| Command | Example Use Case |
+| :--- | :--- |
+| **Get System Info** | `python bitfy.py --ask "what is my computer's IP address?"` |
+| **Manage Processes** | `python bitfy.py --ask "list all running processes"` |
+| **Navigate & Interact** | `python bitfy.py --ask "show me all the files in my current directory"` |
+| **General Knowledge** | `python bitfy.py --ask "explain the difference between TCP and UDP"` |
+| **Troubleshooting** | `python bitfy.py --ask "why is my internet slow?"` |
+
+### 🔄 Reset Chat History
+
+To clear all stored chat history and the vector-based memory, use the `--reset` flag.
 
 ```bash
-python bitfy.py --ask "How to list all processes running on Windows?"
+python bitfy.py --reset
 ```
 
-Example Output:
+This will delete `bitfy_chat_history.json` and the `bitfy_faiss_index` directory, giving you a fresh start.
 
-```
-Bitfy CLI
+-----
 
-🤖 Bitfy is thinking...
+## 🧠 How It Works
 
-🤖 Bitfy: 
-Use the following command to list processes:
-tasklist
-```
+Bitfy combines several technologies to deliver its functionality:
 
-## 💾 Memory System
+  * **Groq LLM:** The `ChatGroq` model processes your natural language query. Its system prompt guides it to identify when a command is needed and to wrap it in `<execute>` tags.
+  * **FAISS Vector Store:** The `FAISS` library creates a vector-based index of your past conversations. This "memory" is used to retrieve relevant context for future queries, making the AI's responses more accurate over time.
+  * **Hugging Face Embeddings:** The `sentence-transformers` model transforms your conversations into dense vector representations that can be stored and searched in the FAISS index.
+  * **Python Subprocess:** The `subprocess` module is used to safely execute the commands generated by the LLM after you've confirmed them.
 
-* **Chat History** → Stored in `bitfy_chat_history.json`
-* **Vector Store** → Stored locally in `bitfy_faiss_index/` using FAISS
-* **Update cycle** → Every new Q\&A is embedded, indexed, and added to long-term memory
+-----
 
-## 🛠️ Project Structure
+## 🤝 Contributing
 
-```
-bitfy-cli/
-│
-├── bitfy.py                  # Main CLI script
-├── bitfy_config.json         # Stores API key
-├── bitfy_chat_history.json   # Stores past conversations
-├── bitfy_faiss_index/        # FAISS vector store for memory
-└── requirements.txt          # Dependencies
-```
+Contributions are welcome\! If you have ideas for new features, improvements, or bug fixes, please open an issue or submit a pull request.
 
-## ⚡ Future Improvements
+## 📄 License
 
-* Command auto-run mode with safety confirmations
-* Multi-platform support (Linux/Mac commands)
-* Session tagging for project-specific memories
-* Richer semantic retrieval with better embedding models
+This project is licensed under the MIT License.
 
-## 📜 License
-
-MIT License
-
+-----
