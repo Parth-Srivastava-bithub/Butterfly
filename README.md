@@ -1,6 +1,7 @@
 # Bitfy CLI: Your AI-Powered Command-Line Assistant
 
 Bitfy CLI is a powerful and intelligent command-line interface assistant designed to streamline your workflow on Windows. It goes beyond simple automation by understanding your requests in natural language and intelligently deciding whether to provide a direct answer or execute a command on your behalf. Powered by the Groq API and a local vector store, Bitfy learns from every interaction, becoming more helpful and personalized over time.
+![Example](image.png)
 
 -----
 
